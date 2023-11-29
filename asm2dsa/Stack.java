@@ -1,34 +1,41 @@
-package asm2dsa;
+package ASSIGNMENT2;
 
 public class Stack {
-    private static final int MAX_SIZE = 10;  // Đặt giới hạn kích thước của ngăn xếp
-    private String[] messages;
+    private String[] stack;
     private int top;
 
     public Stack() {
-        this.messages = new String[MAX_SIZE];
+        this.stack = new String[3];
         this.top = -1;
     }
 
-    public boolean isEmpty() {
-        return top == -1;
+    public boolean empty() {
+        return top < 0;
     }
 
-    public boolean isFull() {
-        return top == MAX_SIZE - 1;
+    public boolean full() {
+        return top >= 2;
     }
 
-    public void push(String message) {
-        if (!isFull()) {
-            messages[++top] = message;
-        }
+    public String peek() {
+        if (empty())
+            return null;
+
+        return stack[top];
     }
 
     public String pop() {
-        if (!isEmpty()) {
-            return messages[top--];
-        }
-        return null;
+        if (empty())
+            return null;
+
+        String temp = peek();
+        top--;
+
+        return temp;
+    }
+
+    public void push(String value) {
+        top++;
+        stack[top] = value;
     }
 }
-
