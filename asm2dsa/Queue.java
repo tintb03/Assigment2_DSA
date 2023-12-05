@@ -1,52 +1,59 @@
-package ASSIGNMENT2;
+package ASMlan4;
 
-class Queue<S> {
+public class Queue {
+    private static final int MAX_QUEUE_SIZE = 4;
+
     private String[] queue;
     private int front;
-    public int back;
+    private int rear;
     private int size;
 
     public Queue() {
-        this.queue = new String[4];
+        this.queue = new String[MAX_QUEUE_SIZE];
         this.front = 0;
-        this.back = 0;
-        this.size = 4;
+        this.rear = 0;
+        this.size = 0;
     }
 
-    public boolean empty() {
-        if (front == back)
-            return true;
-        else
-            return false;
-    }
-
-    public boolean full() {
-        if (((back + 1) % size) == front)
-            return true;
-        else
-            return false;
-    }
-
-    public String peek() {
-        if (empty())
-            return null;
-
-        return queue[front];
+    public void enqueue(String message) {
+        if (!isFull()) {
+            queue[rear] = message;
+            rear = (rear + 1) % MAX_QUEUE_SIZE;
+            size++;
+        }
     }
 
     public String dequeue() {
-        if (empty())
-            return null;
-
-        String temp = queue[front];
-        queue[front] = null;
-        front = (front + 1) % size;
-
-        return temp;
+        String message = null;
+        if (!isEmpty()) {
+            message = queue[front];
+            front = (front + 1) % MAX_QUEUE_SIZE;
+            size--;
+        }
+        return message;
     }
 
-    public void enqueue(String value) {
-        queue[back] = value;
-        back = (back + 1) % size;
+    public boolean isFull() {
+        return size == MAX_QUEUE_SIZE;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public void displayQueue() {
+        System.out.print("Các giá trị trong Queue hiện tại: ");
+        int index = front;
+        for (int i = 0; i < size; i++) {
+            System.out.print(queue[index]);
+            if (i < size - 1) {
+                System.out.print("; ");
+            }
+            index = (index + 1) % MAX_QUEUE_SIZE;
+        }
+        System.out.println();
     }
 }
+
+
+

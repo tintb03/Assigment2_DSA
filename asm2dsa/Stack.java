@@ -1,41 +1,48 @@
-package ASSIGNMENT2;
+package ASMlan4;
 
 public class Stack {
+    private static final int MAX_STACK_SIZE = 1;
+
     private String[] stack;
     private int top;
 
     public Stack() {
-        this.stack = new String[3];
+        this.stack = new String[MAX_STACK_SIZE];
         this.top = -1;
     }
 
-    public boolean empty() {
-        return top < 0;
-    }
-
-    public boolean full() {
-        return top >= 2;
-    }
-
-    public String peek() {
-        if (empty())
-            return null;
-
-        return stack[top];
+    public void push(String message) {
+        if (!isFull()) {
+            stack[++top] = message;
+        }
     }
 
     public String pop() {
-        if (empty())
-            return null;
-
-        String temp = peek();
-        top--;
-
-        return temp;
+        String message = null;
+        if (!isEmpty()) {
+            message = stack[top--];
+        }
+        return message;
     }
 
-    public void push(String value) {
-        top++;
-        stack[top] = value;
+    public boolean isFull() {
+        return top >= MAX_STACK_SIZE - 1;
+    }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    public void displayStack() {
+        System.out.print("Stack hiện tại: ");
+        for (int i = 0; i <= top; i++) {
+            System.out.print(stack[i]);
+            if (i < top) {
+                System.out.print("; ");
+            }
+        }
+        System.out.println();
     }
 }
+
+
